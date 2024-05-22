@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS department;
+
+DROP DATABASE IF EXISTS employee_role;
+
+DROP DATABASE IF EXISTS employee;
+
+CREATE DATABASE department;
+CREATE DATABASE employee_role;
+CREATE DATABASE employee;
