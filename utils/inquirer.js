@@ -4,23 +4,23 @@ async function employeeRoles(roles, managers) {
     const answers = await inquirer.prompt([
         {
             type: 'input',
-            name: 'employee_first_name',
+            name: 'employeeFirstName',
             message: 'What is the first name of the employee?'
         },
         {
             type: 'input',
-            name: 'employee_last_name',
+            name: 'employeeLastName',
             message: 'What is the last name of the employee?'
         },
         {
             type: 'list',
-            name: 'employee_role',
+            name: 'employeeRole',
             message: 'What is the role of the employee?',
             choices: roles
         },
         {
             type: 'list',
-            name: 'employee_manager',
+            name: 'employeeManager',
             message: 'Who is the employee\'s manager?',
             choices: managers
         }
@@ -32,17 +32,17 @@ async function addRole(departments) {
     const answers = await inquirer.prompt([
         {
             type: 'input',
-            name: 'role_name',
+            name: 'roleName',
             message: 'What is the name of the role?'
         },
         {
             type: 'input',
-            name: 'role_salary',
+            name: 'roleSalary',
             message: 'What is the salary?'
         },
         {
             type: 'list',
-            name: 'role_department',
+            name: 'roleDepartment',
             message: 'What department does the role belong to?',
             choices: departments
         }
@@ -54,13 +54,13 @@ async function updateEmployee(names, roles) {
     const answers = await inquirer.prompt([
         {
             type: 'list',
-            name: 'employee_name',
+            name: 'employeeName',
             message: 'Which employee\'s role do you want to update?',
             choices: names
         },
         {
             type: 'list',
-            name: 'employee_role',
+            name: 'employeeRole',
             message: 'Which role do you want to assign the selected employee?',
             choices: roles
         }
@@ -72,7 +72,7 @@ async function addDepartment() {
     const answers = await inquirer.prompt([
         {
             type: 'input',
-            name: 'department_name',
+            name: 'departmentName',
             message: 'What is the name of the department?'
         }
     ])

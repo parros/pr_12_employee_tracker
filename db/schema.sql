@@ -13,19 +13,19 @@ CREATE TABLE role (
     id SERIAL PRIMARY KEY,
     title VARCHAR(30) UNIQUE NOT NULL,
     salary DECIMAL NOT NULL,
-    department_id INTEGER NOT NULL,
-    FOREIGN KEY (department_id)
+    departmentId INTEGER NOT NULL,
+    FOREIGN KEY (departmentId)
     REFERENCES department(id)
     ON DELETE SET NULL
 );
 
 CREATE TABLE employee (
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR(30) UNIQUE NOT NULL,
-    last_name VARCHAR(30) UNIQUE NOT NULL,
-    role_id INTEGER NOT NULL,
-    manager_id INTEGER DEFAULT null,
-    FOREIGN KEY (role_id)
+    firstName VARCHAR(30) UNIQUE NOT NULL,
+    lastName VARCHAR(30) UNIQUE NOT NULL,
+    roleId INTEGER NOT NULL,
+    managerId INTEGER DEFAULT null,
+    FOREIGN KEY (roleId)
     REFERENCES role(id)
     ON DELETE SET NULL
 );

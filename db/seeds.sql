@@ -5,7 +5,7 @@ VALUES
     ('Legal'),
     ('Sales');
 
-INSERT INTO role (title, salary, department_id)
+INSERT INTO role (title, salary, departmentId)
 VALUES 
     ('Sales Lead', 100000, 4),
     ('Salesperson', 80000, 4),
@@ -16,7 +16,7 @@ VALUES
     ('Legal Team Lead', 250000, 3),
     ('Lawyer', 190000, 3);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (firstName, lastName, roleId, managerId)
 VALUES 
     ('John', 'Doe', 1, null),
     ('Mike', 'Chan', 2, 1),
