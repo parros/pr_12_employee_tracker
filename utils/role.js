@@ -7,8 +7,9 @@ const pool = new Pool({
     host: 'localhost',
     database: 'employee_db'
 })
-async function addingRole(){
-        // Creates an array of the most current departments
+
+async function addingRole() {
+    // Creates an array of the most current departments
     const departments = await pool.query('SELECT name FROM department')
     let departmentNames = []
     for (let i = 0; i < departments.rows.length; i++) {
@@ -18,13 +19,14 @@ async function addingRole(){
     const answers = await addRole(departmentNames)
     // Inserts inquired role data into the role table
     for (let i = 0; i < departments.rows.length; i++) {
-        if (departments.rows[i].name === answers.role_department) {
+        if (departments.rows[i].name === answers.roleDepartment) {
             await pool.query(`
-            INSERT INTO role(title, salary, department_id) 
-            VALUES ('${answers.role_name}', '${answers.role_salary}', ${i + 1})
+            INSERT INTO role(title, salary, departmentId) 
+            VALUES ('${answers.roleName}', '${answers.roleSalary}', ${i + 1})
             `)
         }
     }
-    console.log(`Added ${answers.role_name} to the database`)
+    console.log(`Added ${answers.roleName} to the database`)
 }
+
 module.exports = addingRole
