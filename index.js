@@ -70,19 +70,37 @@ async function addDepartment() {
     return answers
 }
 
-async function answerPicked(answer) {
+async function updateEmployee(names, roles) {
+    const answers = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employee_name',
+            message: 'Which employee\'s role do you want to update?',
+            choices: names
+        },
+        {
+            type: 'list',
+            name: 'employee_role',
+            message: 'Which role do you want to assign the selected employee?',
+            choices: roles
+        }
+    ])
+    return answers
+}
 
+async function answerPicked(answer) {
+    console.log(answer)
     if (answer === 'View All Employees') {
         const result = await pool.query(`
-        SELECT role_id, first_name, last_name, title, department.name AS department, salary, manager_id AS manager FROM employee 
-        JOIN role ON employee.role_id=role.id 
+        SELECT e.id, e.first_name, e.last_name, title, department.name AS department, salary, CONCAT(m.first_name, ' ', m.last_name) AS manager FROM employee AS e
+        LEFT JOIN employee AS m ON e.manager_id=m.id
+        JOIN role ON e.role_id=role.id 
         JOIN department ON role.department_id=department.id
         `)
         console.table(result.rows)
     } else if (answer === 'Add Employee') {
         const workRoles = await pool.query('SELECT title FROM role')
         let roles = []
-        let i = 0
         for (let i = 0; i < workRoles.rows.length; i++) {
             roles.push(workRoles.rows[i].title)
         }
@@ -94,21 +112,36 @@ async function answerPicked(answer) {
                 `)
             }
         }
-        if (answers.employee_manager != null) {
-            console.log(`${answers.employee_first_name} ${answers.employee_last_name} has been added with role ${answers.employee_role} with manager ${answers.employee_manager}`)
-        } else {
-            `
-        ${answers.employee_first_name} ${answers.employee_last_name} has been added with role ${answers.employee_role}
-            `}
-    } else if (answer === 'Update Emplmoyee Role') {
-        
+    } else if (answer === 'Update Employee Role') {
+        const employeeNames = await pool.query('SELECT first_name, last_name FROM employee')
+        let names = []
+        for (let i = 0; i < employeeNames.rows.length; i++) {
+            names.push(`${employeeNames.rows[i].first_name} ${employeeNames.rows[i].last_name}`)
+        }
+        const workRoles = await pool.query('SELECT title FROM role')
+        let roles = []
+        for (let i = 0; i < workRoles.rows.length; i++) {
+            roles.push(workRoles.rows[i].title)
+        }
+        const answers = await updateEmployee(names, roles)
+        for (let i = 0; i < workRoles.rows.length; i++) {
+            if (workRoles.rows[i].title === answers.employee_role){
+                for (let x = 0; x < employeeNames.rows.length; x++){
+                    if (`${employeeNames.rows[x].first_name} ${employeeNames.rows[x].last_name}` === answers.employee_name){
+                        console.log('hellowthaldjl;faksdl;kahdf;kjghadfk;g')
+                        const results = await pool.query(`
+                        UPDATE employee SET role_id = ${i+1} WHERE first_name = '${employeeNames.rows[x].first_name}'
+                    `)}
+                }
+            }
+        }
+
     } else if (answer === 'View All Roles') {
         const result = await pool.query('SELECT * FROM role')
         console.table(result.rows)
     } else if (answer === 'Add Role') {
         const departments = await pool.query('SELECT name FROM department')
         let departmentNames = []
-
         for (let i = 0; i < departments.rows.length; i++) {
             departmentNames.push(departments.rows[i].name)
         }
