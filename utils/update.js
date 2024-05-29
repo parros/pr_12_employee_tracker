@@ -1,4 +1,4 @@
-const {updateEmployee} = require('./inquirer.js')
+const { updateEmployee } = require('./inquirer.js')
 const { Pool } = require('pg')
 
 const pool = new Pool({
@@ -7,6 +7,7 @@ const pool = new Pool({
     host: 'localhost',
     database: 'employee_db'
 })
+
 async function updatingEmployee() {
     // Creates an array of the most current employee names with both first and last names
     const employeeNames = await pool.query('SELECT firstName, lastName FROM employee')

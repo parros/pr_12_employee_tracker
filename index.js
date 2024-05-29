@@ -1,6 +1,6 @@
 const inquirer = require('inquirer')
 const { Pool } = require('pg')
-const {addDepartment} = require('./utils/inquirer.js')
+const { addDepartment } = require('./utils/inquirer.js')
 const addingEmployee = require('./utils/employee.js')
 const updatingEmployee = require('./utils/update.js')
 const addingRole = require('./utils/role.js')
@@ -11,7 +11,6 @@ const pool = new Pool({
     host: 'localhost',
     database: 'employee_db'
 })
-
 
 async function answerPicked(answer) {
     if (answer === 'View All Employees') {
@@ -52,7 +51,7 @@ async function answerPicked(answer) {
     askQuestion()
 }
 
-// 
+// Opening menu options for user to choose from
 function askQuestion() {
     inquirer
         .prompt([

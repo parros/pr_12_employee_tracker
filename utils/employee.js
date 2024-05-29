@@ -45,4 +45,5 @@ async function addingEmployee() {
     // Inserts inquired employee data into the employee table with the for loop helping convert the string answer for role to an integer
     console.log(`Added ${answers.employeeFirstName} ${answers.employeeLastName} to the database`)
 }
+
 module.exports = addingEmployee

@@ -1,4 +1,4 @@
-const {addRole} = require('./inquirer.js')
+const { addRole } = require('./inquirer.js')
 const { Pool } = require('pg')
 
 const pool = new Pool({
