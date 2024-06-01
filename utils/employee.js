@@ -16,7 +16,7 @@ async function addingEmployee() {
         roles.push(workRoles.rows[i].title)
     }
     // Creates an array of the most current employees
-    const employees = await pool.query(`SELECT CONCAT(firstName, ' ', lastName)  FROM employee`)
+    const employees = await pool.query(`SELECT CONCAT(first_name, ' ', last_name)  FROM employee`)
     let managers = ['null']
     for (let i = 0; i < employees.rows.length; i++) {
         managers.push(employees.rows[i].concat)
@@ -26,17 +26,17 @@ async function addingEmployee() {
         if (answers.employeeRole === workRoles.rows[i].title) {
             if (answers.employeeManager === 'null') {
                 await pool.query(`
-                INSERT INTO employee(firstName, lastName, roleId, managerId) VALUES ('${answers.employeeFirstName}', '${answers.employeeLastName}', ${i + 1}, null)
+                INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${answers.employeeFirstName}', '${answers.employeeLastName}', ${i + 1}, null)
                 `)
             } else for (let x = 0; x < employees.rows.length; x++) {
                 // Retrieves employee id for manager
-                const result = await pool.query(`SELECT CONCAT(firstName, ' ', lastName) FROM employee
+                const result = await pool.query(`SELECT CONCAT(first_name, ' ', last_name) FROM employee
                     WHERE id=${x + 1}
                     `)
                 // Inserts inquired employee data into the employee table with the for loop helping convert the string answer for role to an integer
                 if (answers.employeeManager === result.rows[0].concat) {
                     await pool.query(`
-                    INSERT INTO employee(firstName, lastName, roleId, managerId) VALUES ('${answers.employeeFirstName}', '${answers.employeeLastName}', ${i + 1}, ${x + 1})
+                    INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${answers.employeeFirstName}', '${answers.employeeLastName}', ${i + 1}, ${x + 1})
                     `)
                 }
             }

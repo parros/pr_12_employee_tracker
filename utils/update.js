@@ -10,10 +10,10 @@ const pool = new Pool({
 
 async function updatingEmployee() {
     // Creates an array of the most current employee names with both first and last names
-    const employeeNames = await pool.query('SELECT firstName, lastName FROM employee')
+    const employeeNames = await pool.query('SELECT first_name, last_name FROM employee')
     let names = []
     for (let i = 0; i < employeeNames.rows.length; i++) {
-        names.push(`${employeeNames.rows[i].firstName} ${employeeNames.rows[i].lastName}`)
+        names.push(`${employeeNames.rows[i].first_name} ${employeeNames.rows[i].last_name}`)
     }
     // Creates an array of the most current roles for employees
     const workRoles = await pool.query('SELECT title FROM role')
@@ -27,9 +27,9 @@ async function updatingEmployee() {
         if (workRoles.rows[i].title === answers.employeeRole) {
             // Second for loop helps check combined first and last name to the correct first name only
             for (let x = 0; x < employeeNames.rows.length; x++) {
-                if (`${employeeNames.rows[x].firstName} ${employeeNames.rows[x].lastName}` === answers.employeeName) {
+                if (`${employeeNames.rows[x].first_name} ${employeeNames.rows[x].last_name}` === answers.employeeName) {
                     await pool.query(`
-                    UPDATE employee SET roleId = ${i + 1} WHERE firstName = '${employeeNames.rows[x].firstName}'
+                    UPDATE employee SET role_id = ${i + 1} WHERE first_name = '${employeeNames.rows[x].first_name}'
                 `)
                 }
             }
