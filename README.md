@@ -10,7 +10,7 @@ Don't forget to enter npm i on the command line to install code packages.
 
 ## Usage
 
-https://drive.google.com/file/d/1xbtvPRprD5Fz6fdfUdUzhYvb2sslpJsH/view?usp=sharing
+https://drive.google.com/file/d/1xbtvPRprD5Fz6fdfUdUzhYvb2sslpJsH/view?usp=sharing <br/>
 Type node index.js on the command line to start up the employee tracker. Role titles and department names must be unique.
 
 ## Credits
