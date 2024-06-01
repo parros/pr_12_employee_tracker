@@ -21,7 +21,7 @@ async function addingRole() {
     for (let i = 0; i < departments.rows.length; i++) {
         if (departments.rows[i].name === answers.roleDepartment) {
             await pool.query(`
-            INSERT INTO role(title, salary, departmentId) 
+            INSERT INTO role(title, salary, department_id) 
             VALUES ('${answers.roleName}', '${answers.roleSalary}', ${i + 1})
             `)
         }

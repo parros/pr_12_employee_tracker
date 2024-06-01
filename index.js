@@ -16,10 +16,10 @@ async function answerPicked(answer) {
     if (answer === 'View All Employees') {
         // Shows employee data
         const result = await pool.query(`
-        SELECT e.id, e.firstName, e.LastName, title, department.name AS department, salary, CONCAT(m.firstName, ' ', m.lastName) AS manager FROM employee AS e
-        LEFT JOIN employee AS m ON e.managerId=m.id
-        JOIN role ON e.roleId=role.id 
-        JOIN department ON role.departmentId=department.id
+        SELECT e.id, e.first_name, e.Last_name, title, department.name AS department, salary, CONCAT(m.first_name, ' ', m.last_name) AS manager FROM employee AS e
+        LEFT JOIN employee AS m ON e.manager_id=m.id
+        JOIN role ON e.role_id=role.id 
+        JOIN department ON role.department_id=department.id
         `)
         console.table(result.rows)
     } else if (answer === 'Add Employee') {
